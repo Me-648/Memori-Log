@@ -65,12 +65,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # services:
-    #  redis:
-    #    image: redis
-    #    ports:
-    #      - 6379:6379
-    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config google-chrome-stable
@@ -87,8 +81,24 @@ jobs:
       - name: Give execute permission to bin/ scripts
         run: chmod +x bin/*  # binディレクトリ内のスクリプトに実行権限を付与
 
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Create the database
+        run: bin/rails db:create  # データベースを作成
+
+      - name: Run migrations
+        run: bin/rails db:migrate  # マイグレーションを実行して schema.rb を作成
+
       - name: Run tests
         env:
           RAILS_ENV: test
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare
+        run: bin/rails db:test:prepare test test:system  # テストの準備と実行
+
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: ${{ github.workspace }}/tmp/screenshots
+          if-no-files-found: ignore

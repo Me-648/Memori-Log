@@ -6,5 +6,5 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   # パスワードの長さを8文字以上にする
-  validates :password, length: { minimum: 8 } 
+  validates :password, length: { minimum: 8 }
 end

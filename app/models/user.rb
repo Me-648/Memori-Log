@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_secure_password
+  # has_secure_password
 
   has_many :diaries, dependent: :destroy # User モデルと Diary モデルの関連付け（後で戻します）
 

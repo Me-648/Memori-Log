@@ -1,4 +1,6 @@
 class DiariesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def new
     @diary = Diary.new
   end
@@ -20,6 +22,7 @@ class DiariesController < ApplicationController
   end
 
   def show
+    @diary = Diary.find(params[:id])
   end
 
   private

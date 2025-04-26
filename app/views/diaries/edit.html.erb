@@ -1,0 +1,45 @@
+<h1>日記の編集</h1>
+
+<%= form_with model: @diary, local: true, html: { multipart: true, data: { turbo: false } } do |f| %>
+  <% if @diary.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@diary.errors.count, "error") %> prohibited this diary from being saved:</h2>
+
+      <ul>
+        <% @diary.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "タイトル" %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :image, "画像" %><br>
+    <%= f.file_field :image %>
+    <% if @diary.image.attached? %>
+      <div>
+        <%= image_tag @diary.image, style: 'max-width: 300px;' %><br>
+        <%= f.check_box :remove_image %> <%= f.label :remove_image, "画像を削除" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :text, "コメント" %><br>
+    <%= f.text_area :text %>
+  </div>
+
+  <div>
+    <%= f.submit "更新する" %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "詳細に戻る", @diary %> |
+  <%= link_to "一覧に戻る", diaries_path %>
+</div>

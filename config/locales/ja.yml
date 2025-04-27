@@ -1,0 +1,11 @@
+ja:
+  time:
+    formats:
+      long: "%Y年%m月%d日 %H時%M分%S秒"
+      short: "%Y/%m/%d %H:%M"
+      default: "%Y-%m-%d %H:%M:%S"
+  date:
+    formats:
+      long: "%Y年%m月%d日(%a)"
+      short: "%Y/%m/%d"
+      default: "%Y-%m-%d"

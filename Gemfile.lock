@@ -393,6 +393,7 @@ DEPENDENCIES
   debug
   devise
   devise-i18n
+  i18n
   importmap-rails
   jbuilder
   kamal

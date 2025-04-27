@@ -4,11 +4,18 @@
 <h1>投稿一覧</h1>
 <% @diaries.each do |diary| %>
   <div class="diary">
-  <h2><%= diary.title %></h2>
-  <p><%= diary.text %></p>
-  <% if diary.image.attached? %>
-    <%= image_tag diary.image, width: 300 %>
-  <% end %>
-  <hr>
+    <h2><%= diary.title %></h2>
+    <% if diary.image.attached? %>
+      <%= image_tag diary.image, width: 300 %>
+    <% end %>
+
+    <p><%= diary.text.truncate(30) %></p>
+    <%= link_to '続きを読む', diary_path(diary) %>
+    <br>
+
+    <%= link_to "編集", edit_diary_path(diary) %>
+    <%= button_to "削除", diary_path(diary), method: :delete %>
+    <hr>
   </div>
 <% end %>
+<%= link_to "日記を作成", new_diary_path %>

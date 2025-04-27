@@ -1,2 +1,17 @@
 <h1>Diaries#show</h1>
 <p>Find me in app/views/diaries/show.html.erb</p>
+
+<h1><%= @diary.title %></h1>
+
+<% if @diary.image.attached? %>
+  <%= image_tag @diary.image %>
+<% end %>
+
+<p><%= simple_format(@diary.text) %></p>
+
+<p>作成日時: <%= l @diary.created_at, format: :long %></p>
+<p>更新日時: <%= l @diary.updated_at, format: :long %></p>
+
+<%= link_to '編集', edit_diary_path(@diary) %>
+<%= button_to "削除", diary_path(@diary), method: :delete %>
+<%= link_to '一覧に戻る', diaries_path %>
